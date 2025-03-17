@@ -1,10 +1,9 @@
 "use client";
 
+import { api } from "@/trpc/react";
 import { useState } from "react";
 
-import { api } from "@/trpc/react";
-
-export function LatestPost() {
+export const LatestPost = () => {
   const [latestPost] = api.post.getLatest.useSuspenseQuery();
 
   const utils = api.useUtils();
@@ -18,33 +17,31 @@ export function LatestPost() {
 
   return (
     <div className="w-full max-w-xs">
-      {latestPost ? (
+      {latestPost ?
         <p className="truncate">Your most recent post: {latestPost.name}</p>
-      ) : (
-        <p>You have no posts yet.</p>
-      )}
+      : <p>You have no posts yet.</p>}
       <form
+        className="flex flex-col gap-2"
         onSubmit={(e) => {
           e.preventDefault();
           createPost.mutate({ name });
         }}
-        className="flex flex-col gap-2"
       >
         <input
-          type="text"
-          placeholder="Title"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
           className="w-full rounded-full px-4 py-2 text-black"
+          onChange={(e) => { setName(e.target.value); }}
+          placeholder="Title"
+          type="text"
+          value={name}
         />
         <button
-          type="submit"
           className="rounded-full bg-white/10 px-10 py-3 font-semibold transition hover:bg-white/20"
           disabled={createPost.isPending}
+          type="submit"
         >
           {createPost.isPending ? "Submitting..." : "Submit"}
         </button>
       </form>
     </div>
   );
-}
+};

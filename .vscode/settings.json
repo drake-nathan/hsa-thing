@@ -1,0 +1,12 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "eslint.runtime": "node",
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "style.config.js": "eslint.config.js, prettier.config.js"
+  }
+}
