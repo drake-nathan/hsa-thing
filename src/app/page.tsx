@@ -1,19 +1,46 @@
-import { LatestPost } from "@/app/_components/post";
+import { HSADashboard } from "@/components/hsa-dashboard";
+import { LoginButton } from "@/components/login-button";
+import { ThemeModeToggle } from "@/components/theme-mode-toggle";
 import { api, HydrateClient } from "@/trpc/server";
+import { Suspense } from "react";
 
-const Home = async () => {
-  const hello = await api.post.hello({ text: "from tRPC" });
-
+const Home = () => {
   void api.post.getLatest.prefetch();
 
   return (
     <HydrateClient>
-      <main className="flex min-h-screen flex-col items-center justify-center">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-          <p className="text-2xl text-white">{hello.greeting}</p>
-          <LatestPost />
+      <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
+        <div className="container mx-auto px-4 py-6">
+          <header className="flex items-center justify-between mb-8">
+            <div>
+              <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                HSA Thing
+              </h1>
+              <p className="text-muted-foreground">
+                Manage your health savings account
+              </p>
+            </div>
+            <div className="flex items-center gap-3">
+              <LoginButton />
+              <ThemeModeToggle />
+            </div>
+          </header>
+          <main>
+            <Suspense
+              fallback={
+                <div className="h-[80vh] flex items-center justify-center">
+                  Loading dashboard...
+                </div>
+              }
+            >
+              <HSADashboard />
+            </Suspense>
+          </main>
+          <footer className="mt-16 py-6 text-center text-sm text-muted-foreground">
+            <p>© {new Date().getFullYear()} HSA Thing. All rights reserved.</p>
+          </footer>
         </div>
-      </main>
+      </div>
     </HydrateClient>
   );
 };
