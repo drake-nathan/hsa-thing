@@ -1,1 +1,1 @@
-export { prettier as default } from "./style.config.js";
+export { prettier as default } from "./style-kit.config.js";

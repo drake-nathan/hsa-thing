@@ -1,1 +1,1 @@
-export { eslint as default } from "./style.config.js";
+export { eslint as default } from "./style-kit.config.js";

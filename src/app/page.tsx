@@ -4,6 +4,8 @@ import { ThemeModeToggle } from "@/components/theme-mode-toggle";
 import { api, HydrateClient } from "@/trpc/server";
 import { Suspense } from "react";
 
+export const dynamic = "force-dynamic";
+
 const Home = () => {
   void api.post.getLatest.prefetch();
 
