@@ -12,6 +12,12 @@ export const eslint = eslintConfig(
       "no-nested-ternary": "off",
     },
   },
+  {
+    files: ["src/env.js"],
+    rules: {
+      "perfectionist/sort-objects": "off",
+    },
+  },
 );
 
 export const prettier = prettierConfig({

@@ -7,7 +7,7 @@ import { AddWithdrawDialog } from "@/components/add-withdraw-dialog";
 import { HSABalance } from "@/components/hsa-balance";
 import { RecurringTransactionDialog } from "@/components/recurring-transaction-dialog";
 import { TransactionsTable } from "@/components/transactions-table";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { exportTransactionsToCSV } from "@/lib/utils";

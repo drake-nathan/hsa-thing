@@ -9,9 +9,9 @@ const config = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // experimental: {
-  //   reactCompiler: true,
-  // },
+  experimental: {
+    reactCompiler: true,
+  },
   typescript: {
     ignoreBuildErrors: true,
   },

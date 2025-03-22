@@ -2,7 +2,7 @@
 
 import type { Transaction } from "@/lib/types";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import {
   Dialog,
   DialogContent,
@@ -23,7 +23,9 @@ export const ViewReceiptDialog = ({
   open,
   transaction,
 }: ViewReceiptDialogProps) => {
-  if (!transaction.receiptUrl) return null;
+  if (!transaction.receiptUrl) {
+    return null;
+  }
 
   const formatDate = (date: Date) => {
     return new Intl.DateTimeFormat("en-US", {

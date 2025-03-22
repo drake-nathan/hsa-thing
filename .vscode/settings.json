@@ -4,9 +4,17 @@
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
   "eslint.runtime": "node",
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
+    "package.json": "bun.lock",
     "style-kit.config.js": "eslint.config.js, prettier.config.js"
-  }
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "tailwindCSS.classFunctions": ["cn", "cva"]
 }
