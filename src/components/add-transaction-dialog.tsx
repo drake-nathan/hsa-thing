@@ -161,14 +161,14 @@ export const AddTransactionDialog = ({
                   <Label htmlFor="receipt">Upload Receipt (optional)</Label>
                   <div className="flex items-center gap-4">
                     <Button
-                      className="w-full h-20 flex flex-col items-center justify-center border-dashed"
+                      className="flex h-20 w-full flex-col items-center justify-center border-dashed"
                       onClick={() =>
                         document.getElementById("receipt")?.click()
                       }
                       type="button"
                       variant="outline"
                     >
-                      <Upload className="h-6 w-6 mb-1" />
+                      <Upload className="mb-1 h-6 w-6" />
                       <span>
                         {receiptFile ? receiptFile.name : "Click to upload"}
                       </span>

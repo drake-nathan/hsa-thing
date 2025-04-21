@@ -41,9 +41,9 @@ export const HSABalance = ({
   );
 
   return (
-    <Card className="overflow-hidden border-none shadow-lg bg-gradient-to-br from-card/80 to-card">
+    <Card className="overflow-hidden border-none bg-gradient-to-br from-card/80 to-card shadow-lg">
       <CardHeader className="pb-2">
-        <CardTitle className="flex justify-between items-center">
+        <CardTitle className="flex items-center justify-between">
           <span>HSA Balance</span>
           <Button
             className="h-8 gap-1 text-xs font-normal"
@@ -58,7 +58,7 @@ export const HSABalance = ({
         <CardDescription>Your health savings account</CardDescription>
       </CardHeader>
       <CardContent className="pb-2">
-        <div className="flex items-baseline mb-1">
+        <div className="mb-1 flex items-baseline">
           <div className="text-4xl font-bold tracking-tight">
             {formattedBalance}
           </div>
@@ -67,7 +67,7 @@ export const HSABalance = ({
 
         <div className="mt-6 space-y-4">
           <div>
-            <div className="flex justify-between text-sm mb-1">
+            <div className="mb-1 flex justify-between text-sm">
               <div className="text-muted-foreground">Yearly contribution</div>
               <div className="font-medium">
                 {contributionProgress.toFixed(0)}%
@@ -75,7 +75,7 @@ export const HSABalance = ({
             </div>
             <div className="relative">
               <Progress className="h-2" value={contributionProgress} />
-              <div className="absolute -top-1 left-0 w-full flex justify-between text-xs text-muted-foreground">
+              <div className="absolute -top-1 left-0 flex w-full justify-between text-xs text-muted-foreground">
                 <span>$0</span>
                 <span>${yearlyContribution}</span>
               </div>
@@ -84,12 +84,12 @@ export const HSABalance = ({
 
           <div
             className={cn(
-              "flex items-center justify-between p-3 rounded-lg",
-              "bg-primary/5 border border-primary/10",
+              "flex items-center justify-between rounded-lg p-3",
+              "border border-primary/10 bg-primary/5",
             )}
           >
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-full bg-primary/10">
+              <div className="rounded-full bg-primary/10 p-2">
                 <PiggyBank className="h-4 w-4 text-primary" />
               </div>
               <div>

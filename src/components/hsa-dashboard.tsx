@@ -108,7 +108,7 @@ export const HSADashboard = () => {
 
   return (
     <div className="space-y-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <HSABalance
           balance={balance}
           onOpenRecurring={() => {
@@ -117,36 +117,36 @@ export const HSADashboard = () => {
           unclaimedBalance={unclaimedBalance}
         />
 
-        <Card className="overflow-hidden border-none shadow-lg bg-gradient-to-br from-card/80 to-card">
+        <Card className="overflow-hidden border-none bg-gradient-to-br from-card/80 to-card shadow-lg">
           <CardContent className="p-6">
-            <div className="flex justify-between items-center mb-6">
+            <div className="mb-6 flex items-center justify-between">
               <h3 className="text-xl font-semibold">Quick Actions</h3>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <Button
-                className="h-auto py-4 justify-start gap-3 group"
+                className="group h-auto justify-start gap-3 py-4"
                 onClick={() => {
                   setIsAddTransactionOpen(true);
                 }}
               >
-                <PlusCircle className="h-5 w-5 group-hover:text-primary-foreground transition-colors" />
+                <PlusCircle className="h-5 w-5 transition-colors group-hover:text-primary-foreground" />
                 <div className="text-left">
                   <div className="font-medium">Add Transaction</div>
-                  <div className="text-xs opacity-70 group-hover:text-primary-foreground/80 transition-colors">
+                  <div className="text-xs opacity-70 transition-colors group-hover:text-primary-foreground/80">
                     Record expenses with receipts
                   </div>
                 </div>
               </Button>
 
               <Button
-                className="h-auto py-4 justify-start gap-3 group border-primary/20 hover:border-primary"
+                className="group h-auto justify-start gap-3 border-primary/20 py-4 hover:border-primary"
                 onClick={() => {
                   setIsAddWithdrawOpen(true);
                 }}
                 variant="outline"
               >
-                <ArrowUpCircle className="h-5 w-5 text-primary group-hover:text-primary transition-colors" />
+                <ArrowUpCircle className="h-5 w-5 text-primary transition-colors group-hover:text-primary" />
                 <div className="text-left">
                   <div className="font-medium">Add Withdraw</div>
                   <div className="text-xs opacity-70">
@@ -156,13 +156,13 @@ export const HSADashboard = () => {
               </Button>
 
               <Button
-                className="h-auto py-4 justify-start gap-3 group border-primary/20 hover:border-primary"
+                className="group h-auto justify-start gap-3 border-primary/20 py-4 hover:border-primary"
                 onClick={() => {
                   setIsRecurringOpen(true);
                 }}
                 variant="outline"
               >
-                <ArrowDownCircle className="h-5 w-5 text-primary group-hover:text-primary transition-colors" />
+                <ArrowDownCircle className="h-5 w-5 text-primary transition-colors group-hover:text-primary" />
                 <div className="text-left">
                   <div className="font-medium">Recurring Deposit</div>
                   <div className="text-xs opacity-70">
@@ -172,11 +172,11 @@ export const HSADashboard = () => {
               </Button>
 
               <Button
-                className="h-auto py-4 justify-start gap-3 group border-primary/20 hover:border-primary"
+                className="group h-auto justify-start gap-3 border-primary/20 py-4 hover:border-primary"
                 onClick={handleExportCSV}
                 variant="outline"
               >
-                <Download className="h-5 w-5 text-primary group-hover:text-primary transition-colors" />
+                <Download className="h-5 w-5 text-primary transition-colors group-hover:text-primary" />
                 <div className="text-left">
                   <div className="font-medium">Export CSV</div>
                   <div className="text-xs opacity-70">
@@ -190,7 +190,7 @@ export const HSADashboard = () => {
       </div>
 
       <Tabs className="w-full" defaultValue="all">
-        <TabsList className="grid w-full grid-cols-3 mb-6 rounded-lg bg-muted/50 p-1">
+        <TabsList className="mb-6 grid w-full grid-cols-3 rounded-lg bg-muted/50 p-1">
           <TabsTrigger
             className="rounded-md data-[state=active]:bg-background data-[state=active]:shadow-sm"
             value="all"

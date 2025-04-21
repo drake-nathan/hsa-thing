@@ -53,7 +53,7 @@ export const ViewReceiptDialog = ({
             <div>${transaction.amount.toFixed(2)}</div>
           </div>
 
-          <div className="border rounded-lg overflow-hidden">
+          <div className="overflow-hidden rounded-lg border">
             <Image
               alt={`Receipt for ${transaction.description}`}
               className="w-full object-contain"

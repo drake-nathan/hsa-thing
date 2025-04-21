@@ -5,7 +5,7 @@ import { LogIn } from "lucide-react";
 
 export const LoginButton = () => (
   <Button
-    className="gap-2 bg-background/80 backdrop-blur-sm border border-border/40 hover:bg-accent transition-all"
+    className="gap-2 border border-border/40 bg-background/80 backdrop-blur-sm transition-all hover:bg-accent"
     size="sm"
     variant="outline"
   >

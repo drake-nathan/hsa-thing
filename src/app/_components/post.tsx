@@ -29,7 +29,9 @@ export const LatestPost = () => {
       >
         <input
           className="w-full rounded-full px-4 py-2 text-black"
-          onChange={(e) => { setName(e.target.value); }}
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
           placeholder="Title"
           type="text"
           value={name}

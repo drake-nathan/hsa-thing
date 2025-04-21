@@ -13,9 +13,9 @@ const Home = () => {
     <HydrateClient>
       <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
         <div className="container mx-auto px-4 py-6">
-          <header className="flex items-center justify-between mb-8">
+          <header className="mb-8 flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+              <h1 className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-3xl font-bold tracking-tight text-transparent">
                 HSA Thing
               </h1>
               <p className="text-muted-foreground">
@@ -30,7 +30,7 @@ const Home = () => {
           <main>
             <Suspense
               fallback={
-                <div className="h-[80vh] flex items-center justify-center">
+                <div className="flex h-[80vh] items-center justify-center">
                   Loading dashboard...
                 </div>
               }
