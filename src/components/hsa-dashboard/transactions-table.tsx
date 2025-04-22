@@ -20,7 +20,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ViewReceiptDialog } from "@/components/view-receipt-dialog";
 import {
   ArrowDown,
   ArrowUp,
@@ -33,6 +32,8 @@ import {
   X,
 } from "lucide-react";
 import { useState } from "react";
+
+import { ViewReceiptDialog } from "./view-receipt-dialog";
 
 interface TransactionsTableProps {
   onToggleWithdrawn: (id: string, withdrawn: boolean) => void;

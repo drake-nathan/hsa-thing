@@ -2,11 +2,6 @@
 
 import type { Transaction } from "@/lib/types";
 
-import { AddTransactionDialog } from "@/components/add-transaction-dialog";
-import { AddWithdrawDialog } from "@/components/add-withdraw-dialog";
-import { HSABalance } from "@/components/hsa-balance";
-import { RecurringTransactionDialog } from "@/components/recurring-transaction-dialog";
-import { TransactionsTable } from "@/components/transactions-table";
 import { Button } from "@/components/ui/button/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -20,6 +15,12 @@ import {
 } from "lucide-react";
 import * as React from "react";
 import { useEffect, useState } from "react";
+
+import { AddTransactionDialog } from "./add-transaction-dialog";
+import { AddWithdrawDialog } from "./add-withdraw-dialog";
+import { HSABalance } from "./hsa-balance";
+import { RecurringTransactionDialog } from "./recurring-transaction-dialog";
+import { TransactionsTable } from "./transactions-table";
 
 // Utility function to convert API date string to client date consistently
 const parseDate = (dateString: Date | string): Date => {

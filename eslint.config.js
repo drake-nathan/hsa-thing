@@ -8,6 +8,14 @@ export default eslintConfig(
     react: {
       framework: "next",
     },
+    rules: {
+      "perfectionist/sort-imports": [
+        "warn",
+        {
+          internalPattern: ["^@/.+"],
+        },
+      ],
+    },
     storybook: true,
     typescript: "tsconfig.eslint.json",
   },
