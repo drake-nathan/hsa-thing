@@ -2,6 +2,8 @@
 
 import type React from "react";
 
+import { useState } from "react";
+
 import { Button } from "@/components/ui/button/button";
 import {
   Dialog,
@@ -21,7 +23,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { useState } from "react";
 
 interface RecurringTransactionDialogProps {
   onOpenChange: (open: boolean) => void;

@@ -1,5 +1,7 @@
 "use client";
 
+import { Clock, PiggyBank, Plus } from "lucide-react";
+
 import { Button } from "@/components/ui/button/button";
 import {
   Card,
@@ -11,7 +13,6 @@ import {
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
-import { Clock, PiggyBank, Plus } from "lucide-react";
 
 interface HSABalanceProps {
   balance: number;

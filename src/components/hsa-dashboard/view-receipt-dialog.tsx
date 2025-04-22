@@ -1,5 +1,8 @@
 "use client";
 
+import { Download } from "lucide-react";
+import Image from "next/image";
+
 import type { Transaction } from "@/lib/types";
 
 import { Button } from "@/components/ui/button/button";
@@ -9,8 +12,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Download } from "lucide-react";
-import Image from "next/image";
 
 interface ViewReceiptDialogProps {
   onOpenChange: (open: boolean) => void;

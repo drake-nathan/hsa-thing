@@ -1,7 +1,11 @@
 "use client";
 
-import type { Transaction } from "@/lib/types";
 import type React from "react";
+
+import { Upload } from "lucide-react";
+import { useState } from "react";
+
+import type { Transaction } from "@/lib/types";
 
 import { Button } from "@/components/ui/button/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -16,8 +20,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Upload } from "lucide-react";
-import { useState } from "react";
 
 interface AddTransactionDialogProps {
   onAddTransaction: (transaction: Transaction) => void;

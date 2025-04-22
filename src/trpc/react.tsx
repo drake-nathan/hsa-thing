@@ -1,6 +1,5 @@
 "use client";
 
-import type { AppRouter } from "@/server/api/root";
 import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 
 import { type QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -8,6 +7,8 @@ import { httpBatchStreamLink, loggerLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
 import { useState } from "react";
 import SuperJSON from "superjson";
+
+import type { AppRouter } from "@/server/api/root";
 
 import { createQueryClient } from "./query-client";
 

@@ -1,4 +1,3 @@
-import { db } from "@/server/db";
 /**
  * YOU PROBABLY DON'T NEED TO EDIT THIS FILE, UNLESS:
  * 1. You want to modify request context (see Part 1).
@@ -10,6 +9,8 @@ import { db } from "@/server/db";
 import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
+
+import { db } from "@/server/db";
 
 /**
  * 1. CONTEXT
