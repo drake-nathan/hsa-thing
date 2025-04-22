@@ -11,63 +11,108 @@ import { Button } from "@/components/ui/button/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { exportTransactionsToCSV } from "@/lib/utils";
+import { api } from "@/trpc/react";
 import {
   ArrowDownCircle,
   ArrowUpCircle,
   Download,
   PlusCircle,
 } from "lucide-react";
-import { useState } from "react";
+import * as React from "react";
+import { useEffect, useState } from "react";
+
+// Utility function to convert API date string to client date consistently
+const parseDate = (dateString: Date | string): Date => {
+  if (dateString instanceof Date) return dateString;
+  return new Date(dateString);
+};
 
 export const HSADashboard = () => {
-  const [balance, setBalance] = useState(2500);
-  const [unclaimedBalance, setUnclaimedBalance] = useState(1200);
-  const [transactions, setTransactions] = useState<Transaction[]>([
-    {
-      amount: 1500,
-      date: new Date("2023-12-15"),
-      description: "Annual contribution",
-      id: "1",
-      receiptUrl: null,
-      type: "deposit",
-      withdrawn: false,
-    },
-    {
-      amount: 150,
-      date: new Date("2023-12-20"),
-      description: "Doctor visit",
-      id: "2",
-      receiptUrl: "/placeholder.svg?height=300&width=300",
-      type: "expense",
-      withdrawn: true,
-    },
-    {
-      amount: 75,
-      date: new Date("2024-01-05"),
-      description: "Prescription",
-      id: "3",
-      receiptUrl: "/placeholder.svg?height=300&width=300",
-      type: "expense",
-      withdrawn: false,
-    },
-    {
-      amount: 1000,
-      date: new Date("2024-01-15"),
-      description: "Employer contribution",
-      id: "4",
-      receiptUrl: null,
-      type: "deposit",
-      withdrawn: false,
-    },
-  ]);
+  const [balance, setBalance] = useState(0);
+  const [unclaimedBalance, setUnclaimedBalance] = useState(0);
+  const [localTransactions, setLocalTransactions] = useState<Transaction[]>([]);
+
+  // Fetch transactions from API
+  const { data: apiTransactions, refetch } =
+    api.hsaTransaction.getAll.useQuery();
+
+  // Client-side only data handling to avoid hydration mismatches
+  const [isClient, setIsClient] = useState(false);
+
+  // Set isClient to true once component mounts on client side
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Use useMemo to avoid dependency issues with useEffect
+  const transactions = React.useMemo(() => {
+    if (localTransactions.length > 0) return localTransactions;
+
+    if (!isClient || !apiTransactions) return [];
+
+    return apiTransactions.map((transaction) => ({
+      amount: transaction.amount,
+      date: parseDate(transaction.date),
+      description: transaction.description,
+      id: transaction.id,
+      receiptUrl: transaction.receiptUrl,
+      type: transaction.type.toLowerCase() as "deposit" | "expense",
+      withdrawn: transaction.withdrawn,
+    }));
+  }, [apiTransactions, localTransactions, isClient]);
+
+  // Calculate balances based on transactions
+  useEffect(() => {
+    if (transactions.length > 0) {
+      let newBalance = 0;
+      let newUnclaimedBalance = 0;
+
+      transactions.forEach((transaction) => {
+        if (transaction.type === "deposit") {
+          newBalance += transaction.amount;
+        } else {
+          // Type must be "expense" if not "deposit"
+          const isWithdrawn = transaction.withdrawn;
+          if (isWithdrawn) {
+            newBalance -= transaction.amount;
+          } else {
+            newUnclaimedBalance += transaction.amount;
+          }
+        }
+      });
+
+      setBalance(newBalance);
+      setUnclaimedBalance(newUnclaimedBalance);
+    }
+  }, [transactions]);
 
   const [isAddTransactionOpen, setIsAddTransactionOpen] = useState(false);
   const [isAddWithdrawOpen, setIsAddWithdrawOpen] = useState(false);
   const [isRecurringOpen, setIsRecurringOpen] = useState(false);
 
-  const handleAddTransaction = (transaction: Transaction) => {
-    setTransactions([...transactions, transaction]);
+  const createTransaction = api.hsaTransaction.create.useMutation({
+    onSuccess: () => void refetch(),
+  });
 
+  const updateTransaction = api.hsaTransaction.update.useMutation({
+    onSuccess: () => void refetch(),
+  });
+
+  const handleAddTransaction = (transaction: Transaction) => {
+    // Call API to create transaction
+    createTransaction.mutate({
+      amount: transaction.amount,
+      date: transaction.date,
+      description: transaction.description,
+      receiptUrl: transaction.receiptUrl,
+      type: transaction.type === "deposit" ? "deposit" : "expense",
+      withdrawn: transaction.withdrawn,
+    });
+
+    // Add to local state for immediate UI update
+    setLocalTransactions([...transactions, transaction]);
+
+    // Recalculate balances
     if (transaction.type === "deposit") {
       setBalance(balance + transaction.amount);
     } else if (transaction.withdrawn) {
@@ -83,23 +128,37 @@ export const HSADashboard = () => {
   };
 
   const handleToggleWithdrawn = (id: string, withdrawn: boolean) => {
-    const updatedTransactions = transactions.map((transaction) => {
-      if (transaction.id === id && transaction.type === "expense") {
-        if (withdrawn && !transaction.withdrawn) {
-          // Marking as withdrawn
-          setBalance(balance - transaction.amount);
-          setUnclaimedBalance(unclaimedBalance - transaction.amount);
-        } else if (!withdrawn && transaction.withdrawn) {
-          // Unmarking as withdrawn
-          setBalance(balance + transaction.amount);
-          setUnclaimedBalance(unclaimedBalance + transaction.amount);
-        }
-        return { ...transaction, withdrawn };
-      }
-      return transaction;
-    });
+    // Find transaction to update
+    const transaction = transactions.find(
+      (t) => t.id === id && t.type === "expense",
+    );
 
-    setTransactions(updatedTransactions);
+    if (transaction) {
+      // Update in API
+      updateTransaction.mutate({
+        id,
+        withdrawn,
+      });
+
+      // Update local state for immediate UI update
+      const updatedTransactions = transactions.map((t) => {
+        if (t.id === id && t.type === "expense") {
+          if (withdrawn && !t.withdrawn) {
+            // Marking as withdrawn
+            setBalance(balance - t.amount);
+            setUnclaimedBalance(unclaimedBalance - t.amount);
+          } else if (!withdrawn && t.withdrawn) {
+            // Unmarking as withdrawn
+            setBalance(balance + t.amount);
+            setUnclaimedBalance(unclaimedBalance + t.amount);
+          }
+          return { ...t, withdrawn };
+        }
+        return t;
+      });
+
+      setLocalTransactions(updatedTransactions);
+    }
   };
 
   const handleExportCSV = () => {

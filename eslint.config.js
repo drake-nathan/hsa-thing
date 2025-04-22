@@ -3,7 +3,7 @@ import { eslintConfig } from "js-style-kit";
 
 export default eslintConfig(
   {
-    ignores: [".next", ".turbo", "next-env.d.ts"],
+    ignores: [".next", ".turbo", "next-env.d.ts", "src/generated"],
     jsdoc: false,
     react: {
       framework: "next",

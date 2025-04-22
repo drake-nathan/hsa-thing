@@ -7,7 +7,7 @@ import { Suspense } from "react";
 export const dynamic = "force-dynamic";
 
 const Home = () => {
-  void api.post.getLatest.prefetch();
+  void api.hsaTransaction.getAll.prefetch();
 
   return (
     <HydrateClient>
